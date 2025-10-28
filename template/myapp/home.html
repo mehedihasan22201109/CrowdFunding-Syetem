@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    body {
+        background: #181818;
+        color: #fff;
+    }
+    .crowdfunding-hero-bg {
+        position: relative;
+        width: 100vw;
+        max-height: 600px;
+        background: #181818;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-top: -60px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    }
+    .crowdfunding-hero-bg img {
+        width: 100vw;
+        max-width: 100%;
+        min-height: 420px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+        filter: grayscale(1) brightness(0.5) contrast(1.2);
+        z-index: 1;
+    }
+   
+    .crowdfunding-hero-title {
+        position: absolute;
+        left: 50%;
+        top: 28%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 4vw;
+        white-space: nowrap;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 700;
+        text-align: center;
+        z-index: 3;
+        letter-spacing: 2px;
+        text-shadow: 0 4px 24px #0051ffff, 0 2px 8px rgba(0,0,0,0.7);
+        animation: crowdfundingTitlePop 1.2s cubic-bezier(.68,-0.55,.27,1.55), crowdfundingTitleGlow 2.5s infinite alternate;
+    }
+    .crowdfunding-hero-greeting {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 0);
+        color: #f0f8ff;
+        font-size: 1.6vw;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 400;
+        z-index: 3;
+        text-align: center;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px #181818;
+    }
+    @keyframes crowdfundingTitlePop {
+        0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8);}
+        60% { opacity: 1; transform: translate(-50%, -52%) scale(1.05);}
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+    }
+    @keyframes crowdfundingTitleGlow {
+        0% { text-shadow: 0 4px 24px #003cffff, 0 2px 8px rgba(0,0,0,0.7);}
+        100% { text-shadow: 0 8px 32px #0073ffff, 0 2px 16px #0044ffff;}
+    }
+    .register-btn {
+        position: absolute;
+        left: 50%;
+        top: 38%;
+        transform: translate(-50%, 0);
+        z-index: 4;
+        padding: 16px 44px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #0004ffff 0%, #181818 100%);
+        color: #fff;
+        border: none;
+        border-radius: 32px;
+        box-shadow: 0 4px 24px rgba(255,0,54,0.18);
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        text-decoration: none;
+        letter-spacing: 2px;
+        outline: none;
+        animation: pulseRed 1.8s infinite;
+    }
+    @keyframes pulseRed {
+        0% { box-shadow: 0 0 0 0 rgba(98, 0, 255, 0.4);}
+        70% { box-shadow: 0 0 0 16px rgba(255,0,54,0);}
+        100% { box-shadow: 0 0 0 0 rgba(255,0,54,0);}
+    }
+    .register-btn:hover, .register-btn:focus {
+        background: linear-gradient(90deg,#181818 0%,#ff0036 100%);
+        box-shadow: 0 8px 32px rgba(255,0,54,0.28);
+        transform: translate(-50%, -4px) scale(1.06);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Matte Black Flex Section */
+    .mat-black-flex-section {
+        display: flex;
+        background: #181818;
+        color: #fff;
+        padding: 64px 0 64px 0;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        min-height: 420px;
+        width: 100%;
+    }
+    .mat-black-left {
+        flex: 1 1 0;
+        max-width: 540px;
+        padding: 0 32px;
+        text-align: left;
+    }
+    .mat-black-left h2 {
+        font-size: 2.2rem;
+        margin-bottom: 18px;
+        color: #2252b9ff;
+        font-weight: 700;
+    }
+    .mat-black-left p {
+        font-size: 1.15rem;
+        margin-bottom: 18px;
+        color: #eee;
+    }
+    .mat-black-left ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .mat-black-left li {
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+        color: #fff;
+    }
+    .mat-black-right {
+        flex: 1 1 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 32px;
+    }
+    .mat-black-right img {
+        max-width: 350px;
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        background: #232323;
+    }
+    /* second matt black section css start */
+    .blog-section {
+        background: #181818;
+        padding: 64px 0;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 36px;
+        width: 100%;
+    }
+    .blog-eventd {
+        background: #232323;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(33,150,243,0.12);
+        overflow: hidden;
+        max-width: 340px;
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .blog-eventd:hover {
+        box-shadow: 0 12px 40px rgba(33,150,243,0.22);
+        transform: translateY(-4px) scale(1.03);
+    }
+    .blog-eventd img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 4px solid #2196f3;
+    }
+    .blog-eventd-content {
+        padding: 24px 18px;
+        color: #fff;
+        text-align: center;
+    }
+    .blog-eventd-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #2196f3;
+        margin-bottom: 12px;
+    }
+    .blog-eventd-desc {
+        font-size: 1rem;
+        color: #b3d9ff;
+        margin-bottom: 0;
+    }
+    @media (max-width: 900px) {
+        .blog-section {
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        .blog-eventd {
+            max-width: 95vw;
+        }
+    }
+    /* second matt black section css end */
+
+    /* White Counter Section */
+    .white-counter-section {
+        background: #f8f9fa;
+        color: #232323;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        min-height: 320px; 
+    }
+    .stats-container {
+        display: flex;
+        min-height: 320px; /* Increased height */
+        width: 100%;
+        max-width: 1678px;
+        margin: 0 auto;
+        background: none;
+    }
+    .stats-left {
+        background: #505354ff;
+        color: #1a237e;
+        flex: 0 0 22%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 400;
+        font-size: 2.5rem;
+        min-height: 140px;
+    }
+    .stats-left .stats-number {
+        font-size: 3.2rem;
+        color: #2196f3;
+        font-weight: 500;
+        margin-bottom: 0.2em;
+        display: block;
+    }
+    .stats-left .stats-label {
+        font-size: 1.1rem;
+        color: #232323;
+        font-weight: 400;
+        text-align: left;
+        line-height: 1.2;
+    }
+    .stats-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background: #f8f9fa;
+        min-height: 140px;
+    }
+    .stats-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 18px;
+    }
+    .stats-item .stats-number {
+        font-size: 2.2rem;
+        color: #2196f3;
+        font-weight: 500;
+        margin-bottom: 0.2em;
+    }
+    .stats-item .stats-label {
+        font-size: 1rem;
+        color: #232323;
+        font-weight: 400;
+        text-align: center;
+        letter-spacing: 0.5px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+        .crowdfunding-hero-title { font-size: 6vw; }
+        .crowdfunding-hero-bg { min-height: 320px; }
+        .crowdfunding-hero-bg img { min-height: 220px; }
+        .crowdfunding-hero-greeting { font-size: 2.8vw; }
+        .register-btn { font-size: 1.1rem; padding: 12px 28px; top: 70%; }
+        .mat-black-flex-section {
+            flex-direction: column;
+            padding: 32px 0;
+            gap: 24px;
+        }
+        .mat-black-left, .mat-black-right {
+            max-width: 100%;
+            padding: 0 12px;
+        }
+        .stats-container {
+            flex-direction: column;
+            min-height: unset;
+        }
+        .stats-left, .stats-right {
+            min-height: 80px;
+            width: 100%;
+        }
+        .stats-left {
+            flex-direction: row;
+            justify-content: center;
+            font-size: 1.5rem;
+            padding: 18px 0;
+        }
+        .stats-left .stats-number {
+            font-size: 2rem;
+        }
+        .stats-right {
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 18px 0;
+        }
+        .stats-item .stats-number {
+            font-size: 1.3rem;
+        }
+    }
+    @media (max-width: 600px) {
+        .crowdfunding-hero-title { font-size: 8vw; }
+        .crowdfunding-hero-bg { min-height: 180px; }
+        .crowdfunding-hero-bg img { min-height: 110px; }
+        .crowdfunding-hero-greeting { font-size: 4vw; }
+        .register-btn { font-size: 1rem; padding: 10px 18px; top: 75%; }
+        .mat-black-flex-section {
+            flex-direction: column;
+            padding: 18px 0;
+            gap: 12px;
+        }
+        .mat-black-left, .mat-black-right {
+            padding: 0 4px;
+        }
+        .mat-black-right img {
+            max-width: 95vw;
+        }
+        .stats-container {
+            flex-direction: column;
+        }
+        .stats-left, .stats-right {
+            min-height: 60px;
+            padding: 12px 0;
+        }
+        .stats-item {
+            margin: 0 6px;
+        }
+        .stats-item .stats-number {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="crowdfunding-hero-bg">
+    <img src="{% static 'IMG/money.jpg' %}" alt="crowdfunding Subway">
+    <div class="crowdfunding-hero-overlay"></div>
+    <div class="crowdfunding-hero-title">
+        {{ headline|default:"Welcome To CrowdFunding " }}
+    </div>
+    <div class="crowdfunding-hero-greeting">
+        {% if user.is_authenticated %}
+            Hello, {{ user.username }}!
+        {% else %}
+            "A Small Donation Can Make A Big Difference."
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+                
+            {% else %}
+                <a href="{% url 'signup' %}" class="register-btn">Register now</a>
+            {% endif %}
+    
+</div>
+
+<!-- Matte Black Section with Left Writing and Right Image -->
+<div class="mat-black-flex-section">
+    <div class="mat-black-left">
+        <h2>Why Choose CrowdFunding?</h2>
+        <p>
+            Crowdfunding has become a popular way to raise money for projects, businesses, and personal causes. Here are some key reasons why people choose crowdfunding:
+        </p>
+        <ul>
+            <li>✔ Wide selection of Donar</li>
+            <li>✔ Easy online Donating </li>
+            <li>✔ Trusted by thousands</li>
+        </ul>
+    </div>
+    <div class="mat-black-right">
+        <div style="position:relative;width:100%;max-width:450px;aspect-ratio:16/9;box-shadow:0 8px 32px rgba(0,0,0,0.5);border-radius:18px;overflow:hidden;background:#232323;">
+            <video width="100%" height="100%" style="aspect-ratio:16/9;border:0;" autoplay muted loop>
+                <source src="{% static 'IMG/fund.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+<!-- White Counter Section -->
+<div class="white-counter-section">
+    <div class="stats-container">
+        <div class="stats-left">
+            <span class="stats-number">10</span>
+            <span class="stats-label">
+                Year<br>
+                Experienced
+            </span>
+        </div>
+        <div class="stats-right">
+            <div class="stats-item">
+                <span class="stats-number">10,90,000</span>
+                <span class="stats-label">Total Amount </span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-number">2,590</span>
+                <span class="stats-label">Donar </span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-number">67</span>
+                <span class="stats-label">Total Helping Situation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Blog Section -->
+<div class="blog-section">
+    <div class="blog-eventd">
+        <img src="{% static 'IMG/blog1.jpg' %}" alt="Blog Post 1">
+        <div class="blog-eventd-content">
+            <div class="blog-eventd-title">Fund Raising for Flood Effected area</div>
+            <div class="blog-eventd-desc">
+               We are raising funds to support families affected by the recent floods.
+Your donation will help provide food, shelter, and essential supplies to those in need.
+            </div>
+        </div>
+    </div>
+    <div class="blog-eventd">
+        <img src="{% static 'IMG/blog2.jpg' %}" alt="Blog Post 2">
+        <div class="blog-eventd-content">
+            <div class="blog-eventd-title">Fund Raising for Rana Plaza Tragedy</div>
+            <div class="blog-eventd-desc">
+                We are raising funds to support the victims and families affected by the Rana Plaza tragedy.
+Your contribution will help provide medical aid, rehabilitation, and financial assistance to rebuild their lives.
+            </div>
+        </div>
+    </div>
+    <div class="blog-eventd">
+        <img src="{% static 'IMG/blog3.jpg' %}" alt="Blog Post 3">
+        <div class="blog-eventd-content">
+            <div class="blog-eventd-title">Fund Raising for Helping Rural area</div>
+            <div class="blog-eventd-desc">
+                We are raising funds to improve the lives of people in rural areas.
+Your support will help provide education, healthcare, and clean water to underprivileged communities.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

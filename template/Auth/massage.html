@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #23272f 0%, #393a3f 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        overflow-x: hidden;
+    }
+    .message-container {
+        max-width: 600px;
+        margin: 80px auto 0 auto;
+        background: rgba(255,255,255,0.95);
+        border-radius: 22px;
+        box-shadow: 0 8px 40px rgba(33,150,243,0.13);
+        padding: 48px 40px 36px 40px;
+        text-align: center;
+        animation: fadeIn 0.9s cubic-bezier(.68,-0.55,.27,1.55);
+        position: relative;
+        z-index: 1;
+    }
+    .message-title {
+        color: #2196f3;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+    }
+    .message-icon {
+        font-size: 4rem;
+        color: #43cea2;
+        margin-bottom: 18px;
+        animation: bounce 1.5s infinite alternate;
+    }
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-18px); }
+    }
+    .message-text {
+        color: #23272f;
+        font-size: 1.2rem;
+        margin-bottom: 24px;
+    }
+    .input-field {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 18px auto;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #2196f3;
+        background: #fff;
+        font-size: 1.1rem;
+        box-shadow: 0 1px 4px rgba(33,150,243,0.04);
+        color: #23272f;
+        outline: none;
+        transition: border 0.2s;
+    }
+    .input-field:focus {
+        border: 2px solid #1565c0;
+    }
+    .send-btn {
+        background: linear-gradient(90deg, #1565c0 0%, #2196f3 100%);
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        padding: 12px 36px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(33,150,243,0.09);
+        margin-top: 8px;
+    }
+    .send-btn:hover {
+        background: linear-gradient(90deg, #0d47a1 0%, #1565c0 100%);
+        box-shadow: 0 4px 16px rgba(33,150,243,0.13);
+    }
+    /* Popup styles */
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.25);
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content {
+        background: #fff;
+        color: #43cea2;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 32px 48px;
+        border-radius: 18px;
+        box-shadow: 0 8px 40px rgba(33,150,243,0.13);
+        text-align: center;
+        animation: fadeIn 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .close-btn {
+        margin-top: 18px;
+        background: linear-gradient(90deg, #1565c0 0%, #2196f3 100%);
+        color: #fff;
+        border: none;
+        border-radius: 18px;
+        padding: 8px 28px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .close-btn:hover {
+        background: linear-gradient(90deg, #0d47a1 0%, #1565c0 100%);
+    }
+</style>
+<div class="message-container">
+    <div class="message-icon">💬</div>
+    <div class="message-title">Send a Message</div>
+    <div class="message-text">Type your message below and click Send.</div>
+    <form id="msgForm" onsubmit="event.preventDefault(); document.getElementById('popup').style.display='flex';">
+        <input type="text" class="input-field" placeholder="Type your message here..." />
+        <button type="submit" class="send-btn">Send</button>
+    </form>
+</div>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        Message sent!
+        <br>
+        <button class="close-btn" onclick="document.getElementById('popup').style.display='none';">Close</button>
+    </div>
+</div>
+{% endblock %}

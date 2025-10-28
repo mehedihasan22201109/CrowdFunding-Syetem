@@ -1,0 +1,425 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+	.help-hero {
+		background: url('{% static "IMG/istoc.jpg" %}') center/cover no-repeat;
+		min-height: 320px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		margin-top: -35px;
+	}
+	.help-hero-overlay {
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: rgba(24,24,24,0.45);
+		z-index: 1;
+	}
+	.help-hero-content {
+		position: relative;
+		z-index: 2;
+		color: #fff;
+		text-align: center;
+		padding: 60px 0 30px 0;
+	}
+	.help-hero-content h1 {
+		font-size: 2.6rem;
+		font-weight: 700;
+		margin-bottom: 10px;
+		letter-spacing: 1px;
+	}
+	.help-hero-content p {
+		font-size: 1.15rem;
+		font-weight: 400;
+		margin-bottom: 0;
+	}
+	.help-section {
+		background: #fff;
+		padding: 48px 0 32px 0;
+		text-align: center;
+	}
+	.help-section h2 {
+		color: #e53935;
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	.help-section p {
+		color: #444;
+		font-size: 1.13rem;
+		margin-bottom: 18px;
+	}
+	.help-ways {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		margin: 36px 0 24px 0;
+	}
+	.help-way {
+		background: #e53935;
+		color: #fff;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		padding: 28px 36px;
+		min-width: 220px;
+		max-width: 260px;
+		text-align: center;
+		transition: box-shadow 0.2s, transform 0.2s;
+	}
+	.help-way:hover {
+		box-shadow: 0 8px 32px rgba(233,30,99,0.13);
+		transform: translateY(-4px) scale(1.03);
+	}
+	.help-way h3 {
+		font-size: 1.3rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	.help-way p {
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+	.help-programs {
+		background: #e53935;
+		color: #fff;
+		padding: 48px 0 32px 0;
+		text-align: center;
+	}
+	.help-programs h2 {
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	.help-programs p {
+		font-size: 1.13rem;
+		margin-bottom: 18px;
+	}
+	.help-program-list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		margin: 36px 0 24px 0;
+	}
+	.help-program-card {
+		background: #fff;
+		color: #222;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		padding: 0 0 18px 0;
+		min-width: 220px;
+		max-width: 260px;
+		text-align: left;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.help-program-card img {
+		width: 100%;
+		height: 140px;
+		object-fit: cover;
+		border-radius: 12px 12px 0 0;
+		margin-bottom: 10px;
+	}
+	.help-program-card h4 {
+		color: #e53935;
+		font-size: 1.13rem;
+		font-weight: 700;
+		margin: 0 0 8px 0;
+		padding: 0 16px;
+	}
+	.help-program-card p {
+		color: #444;
+		font-size: 1rem;
+		margin: 0 0 10px 0;
+		padding: 0 16px;
+	}
+	.help-program-card .help-readmore {
+		display: block;
+		margin: 0 16px 10px 16px;
+		padding: 8px 0;
+		background: #e53935;
+		color: #fff;
+		border-radius: 6px;
+		text-align: center;
+		text-decoration: none;
+		font-weight: 600;
+		transition: background 0.2s;
+	}
+	.help-program-card .help-readmore:hover {
+		background: #b71c1c;
+	}
+	.help-viewall-btn {
+		margin: 18px 0 0 0;
+		padding: 10px 32px;
+		background: #fff;
+		color: #e53935;
+		border-radius: 8px;
+		font-size: 1.1rem;
+		font-weight: 600;
+		border: none;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		cursor: pointer;
+		transition: background 0.2s, color 0.2s;
+	}
+	.help-viewall-btn:hover {
+		background: #e53935;
+		color: #fff;
+	}
+	.help-donate-section {
+		background: #fafafa;
+		padding: 48px 0 32px 0;
+		text-align: center;
+		position: relative;
+	}
+	.help-donate-bg {
+		background: url('https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+		opacity: 0.18;
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+		z-index: 1;
+	}
+	.help-donate-content {
+		position: relative;
+		z-index: 2;
+		max-width: 600px;
+		margin: 0 auto;
+		background: rgba(255,255,255,0.85);
+		border-radius: 12px;
+		padding: 32px 24px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+	}
+	.help-donate-content h2 {
+		color: #222;
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	.help-donate-content p {
+		color: #444;
+		font-size: 1.13rem;
+		margin-bottom: 18px;
+	}
+	.help-donate-form {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		justify-content: center;
+		margin-bottom: 0;
+	}
+	.help-donate-form input,
+	.help-donate-form textarea {
+		padding: 10px;
+		border-radius: 6px;
+		border: 1px solid #ccc;
+		font-size: 1rem;
+		width: 180px;
+		margin-bottom: 0;
+	}
+	.help-donate-form textarea {
+		width: 380px;
+		min-height: 38px;
+		resize: vertical;
+	}
+	.help-donate-form button {
+		padding: 10px 32px;
+		background: #e53935;
+		color: #fff;
+		border-radius: 8px;
+		font-size: 1.1rem;
+		font-weight: 600;
+		border: none;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+	.help-donate-form button:hover {
+		background: #b71c1c;
+	}
+	.help-footer {
+		background: #222;
+		color: #fff;
+		padding: 48px 0 0 0;
+		text-align: left;
+		font-size: 1rem;
+	}
+	.help-footer-content {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 32px;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+	.help-footer-col {
+		flex: 1 1 220px;
+		min-width: 220px;
+		margin-bottom: 24px;
+	}
+	.help-footer-col h4 {
+		color: #e53935;
+		font-size: 1.13rem;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+	.help-footer-col ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.help-footer-col ul li {
+		margin-bottom: 6px;
+	}
+	.help-footer-col ul li a {
+		color: #fff;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	.help-footer-col ul li a:hover {
+		color: #e53935;
+	}
+	.help-footer-map {
+		margin-top: 18px;
+		border-radius: 8px;
+		overflow: hidden;
+		width: 100%;
+		max-width: 320px;
+		height: 160px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+	}
+	.help-footer-social {
+		margin-top: 12px;
+	}
+	.help-footer-social a {
+		color: #fff;
+		margin-right: 10px;
+		font-size: 1.3rem;
+		transition: color 0.2s;
+	}
+	.help-footer-social a:hover {
+		color: #e53935;
+	}
+	.help-footer-bottom {
+		background: #111;
+		color: #fff;
+		text-align: center;
+		padding: 18px 0 8px 0;
+		font-size: 1.1rem;
+		margin-top: 18px;
+	}
+</style>
+
+<div class="help-hero">
+	<div class="help-hero-overlay"></div>
+	<div class="help-hero-content">
+		<h1>How Can You Help?</h1>
+		<p>Support people in need through donation, fundraising, . Together, we can make a difference in lives and communities.</p>
+	</div>
+</div>
+
+<div class="help-section">
+       <div style="color:#e53935;font-weight:600;letter-spacing:2px;">How to Help</div>
+       <h2>Ways to Help</h2>
+       <p>There are many ways you can help people in need. Choose the option that fits you best and join us in making a positive impact.</p>
+       <div class="help-ways">
+	       <div class="help-way">
+		       <h3>Donation</h3>
+		       <p>Contribute funds to support food, shelter, education, and medical care for people facing hardship.</p>
+	       </div>
+	       <div class="help-way">
+		       <h3>Fundraising</h3>
+		       <p>Organize or participate in fundraising events to raise money for humanitarian causes and community projects.</p>
+	       </div>
+	       <div class="help-way">
+		       <h3>Helping</h3>
+		       <p>Give your time and skills to help individuals and families through direct service, mentoring, or support programs.</p>
+	       </div>
+       </div>
+</div>
+
+<div class="help-programs">
+       <div style="font-weight:600;letter-spacing:2px;">Our Latest Projects</div>
+       <h2>See Our Current Programs</h2>
+       <p>Explore our ongoing programs focused on helping people through education, healthcare, and food support.</p>
+       <div class="help-program-list">
+	       <div class="help-program-card">
+	       <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?auto=format&fit=crop&w=400&q=80" alt="Community Education">
+	       <h4>Community Education</h4>
+	       <p>Empowering children and adults with access to quality education, literacy, and life skills for a brighter future.</p>
+	       <a href="#" class="help-readmore">Read More</a>
+	       </div>
+	       <div class="help-program-card">
+	       <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Medical Aid">
+	       <h4>Medical Aid</h4>
+	       <p>Providing essential medical care, supplies, and support to individuals and families in need of healthcare.</p>
+	       <a href="#" class="help-readmore">Read More</a>
+	       </div>
+	       <div class="help-program-card">
+	       <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=400&q=80" alt="Food Distribution">
+	       <h4>Food Distribution</h4>
+	       <p>Delivering nutritious food and clean water to communities facing hunger and food insecurity.</p>
+	       <a href="#" class="help-readmore">Read More</a>
+	       </div>
+       </div>
+       <button class="help-viewall-btn">View All</button>
+</div>
+
+<div class="help-donate-section">
+	<div class="help-donate-bg"></div>
+	<div class="help-donate-content">
+	       <h2>Make a Donation</h2>
+	       <p>Your support helps us provide food, shelter, education, and medical care to people in need. Every contribution makes a difference.</p>
+	       <form class="help-donate-form">
+		       <input type="text" placeholder="Your Name" required>
+		       <input type="email" placeholder="Your Email Address" required>
+		       <textarea placeholder="How would you like to help?" required></textarea>
+		       <button type="submit">Submit</button>
+	       </form>
+	</div>
+</div>
+
+<div class="help-footer">
+	<div class="help-footer-content">
+		<div class="help-footer-col">
+		       <h4>About Us</h4>
+		       <p>We are dedicated to helping people in need by providing essential resources, support, and opportunities for a better life. Join us in our mission to create positive change in communities around the world.</p>
+		       <div class="help-way" style="background:#e53935;color:#fff;margin-top:18px;">
+			       <p>People have been helped so far</p>
+			       <p style="font-size:1.3rem;font-weight:700;">23,800+ lives impacted</p>
+		       </div>
+		</div>
+		<div class="help-footer-col">
+			<h4>Address</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi ea quasi optio est optio est soluta facilis in velit.</p>
+			<p>Email: someone@something.com<br>Country: Your Country</p>
+			<div class="help-footer-map">
+				<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.2945%2C48.8584%2C2.2955%2C48.8594&amp;layer=mapnik" style="border:0;width:100%;height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+		</div>
+		<div class="help-footer-col">
+			<h4>Menus</h4>
+			<ul>
+				<li><a href="#">Menu One</a></li>
+				<li><a href="#">Terms &amp; Conditions</a></li>
+				<li><a href="#">Privacy Policy</a></li>
+			</ul>
+			<div class="help-footer-social">
+				<a href="#"><i class="fab fa-facebook-f"></i></a>
+				<a href="#"><i class="fab fa-twitter"></i></a>
+				<a href="#"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#"><i class="fab fa-instagram"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="help-footer-bottom">
+		NG <span style="color:#e53935;font-weight:700;">&#10084;</span> HAPPY
+	</div>
+</div>
+{% endblock content %}
+

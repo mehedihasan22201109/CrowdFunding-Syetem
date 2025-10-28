@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: #181a20;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        overflow-x: hidden;
+    }
+    .donarlist-container {
+        max-width: 900px;
+        margin: 60px auto 0 auto;
+        background: rgba(255,255,255,0.97);
+        border-radius: 22px;
+        box-shadow: 0 8px 40px rgba(33,150,243,0.13);
+        padding: 48px 40px 36px 40px;
+        text-align: center;
+        animation: fadeIn 0.9s cubic-bezier(.68,-0.55,.27,1.55);
+        position: relative;
+        z-index: 1;
+    }
+    .donarlist-title {
+        color: #2196f3;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+    }
+    .donar-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+        margin-top: 32px;
+    }
+    .donar-card {
+        background: #e3f2fd;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(33,150,243,0.09);
+        padding: 24px 18px 18px 18px;
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .donar-card:hover {
+        transform: translateY(-8px) scale(1.04);
+        box-shadow: 0 8px 24px rgba(33,150,243,0.18);
+    }
+    .donar-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 20%;
+        object-fit: cover;
+        margin-bottom: 14px;
+        border: 3px solid #2196f3;
+        background: #fff;
+    }
+    .donar-name {
+        color: #23272f;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    .total-donated-amount {
+        color: #43cea2;
+        font-weight: 700;
+        font-size: 1.05rem;
+        margin-bottom: 0;
+        background: linear-gradient(90deg,#43cea2 0%,#185a9d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(30px);}
+        100% { opacity: 1; transform: translateY(0);}
+    }
+</style>
+<div class="donarlist-container">
+    <div class="donarlist-title">All Donors</div>
+    {% if donars and donars.count > 0 %}
+        <div class="donar-grid">
+            {% for donar in donars %}
+            <div class="donar-card">
+                {% if donar.profile_pic %}
+                    <img src="{{ donar.profile_pic.url }}" alt="{{ donar.username }}" class="donar-img">
+                {% else %}
+                    <img src="{% static 'IMG/default_profile.png' %}" alt="Default Profile" class="donar-img">
+                {% endif %}
+                <div class="donar-name"><b>{{ donar.username }}</b></div>
+                <div class="total-donated-amount" style="font-size:0.98rem;padding:6px 12px;background:rgba(67,206,162,0.08);border-radius:8px;margin-top:4px;box-shadow:0 1px 4px rgba(33,150,243,0.04);display:inline-block;color:#23272f;background-clip:unset;-webkit-background-clip:unset;-webkit-text-fill-color:unset;">
+                    <span style="color:#185a9d;font-weight:600;">Total Donated:</span> {{ donar.total_donated }} <span style="color:#43cea2;">Taka</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="color:#90caf9;">No donors found.</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<style>
+    .verify-container {
+        max-width: 420px;
+        margin: 60px auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(33,150,243,0.13);
+        padding: 38px 32px 32px 32px;
+    }
+    .verify-container h2 {
+        color: #e53935;
+        text-align: center;
+        margin-bottom: 22px;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .verify-form label {
+        font-weight: 500;
+        color: #1976d2;
+        margin-bottom: 8px;
+        font-size: 1.08rem;
+        display: block;
+    }
+    .verify-form input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #90caf9;
+        background: #f8fafc;
+        color: #333;
+        font-size: 1.08rem;
+        margin-bottom: 18px;
+        outline: none;
+        box-shadow: 0 2px 8px rgba(33,150,243,0.08);
+        transition: border 0.2s, box-shadow 0.2s;
+    }
+    .verify-form input:focus {
+        border: 1.5px solid #1976d2;
+    }
+    .okay-btn {
+        width: 100%;
+        padding: 14px 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        border-radius: 8px;
+        background: linear-gradient(90deg,#e53935 0%,#1976d2 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(33,150,243,0.13);
+        letter-spacing: 1px;
+        transition: background 0.2s,box-shadow 0.2s,transform 0.2s;
+        cursor: pointer;
+    }
+    .okay-btn:hover {
+        background: linear-gradient(90deg,#1976d2 0%,#e53935 100%);
+    }
+</style>
+{% endblock styles %}
+{% block content %}
+<div class="verify-container">
+    <h2>Verify Yourself</h2>
+    <form class="verify-form" method="get" action="{% url 'home' %}">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+        <label for="nid">NID</label>
+        <input type="text" id="nid" name="nid" placeholder="Enter your NID number" required>
+
+        <label for="passport">Passport No.</label>
+        <input type="text" id="passport" name="passport" placeholder="Enter your passport number">
+
+        <label for="birthid">Birth ID</label>
+        <input type="text" id="birthid" name="birthid" placeholder="Enter your birth ID">
+
+        <button type="submit" class="okay-btn">Okay...</button>
+    </form>
+</div>
+{% endblock content %}

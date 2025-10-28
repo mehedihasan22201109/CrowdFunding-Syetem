@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: #181a20;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        overflow-x: hidden;
+    }
+    .animated-bg {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.13;
+        animation: float 12s infinite linear;
+    }
+    .circle1 { width: 320px; height: 320px; background: #bfc99a; left: 5vw; top: 10vh; animation-delay: 0s; }
+    .circle2 { width: 180px; height: 180px; background: #23281e; left: 60vw; top: 60vh; animation-delay: 2s; }
+    .circle3 { width: 220px; height: 220px; background: #7a8450; left: 80vw; top: 20vh; animation-delay: 4s; }
+    .circle4 { width: 140px; height: 140px; background: #23281e; left: 30vw; top: 70vh; animation-delay: 6s; }
+    .circle5 { width: 100px; height: 100px; background: #bfc99a; left: 75vw; top: 80vh; animation-delay: 8s; }
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-40px) scale(1.08); }
+        100% { transform: translateY(0) scale(1); }
+    }
+    .table-profile-eventd {
+        max-width: 1080px;
+        margin: 80px auto 0 auto;
+        background: rgba(35, 39, 47, 0.97);
+        border-radius: 22px;
+        box-shadow: 0 8px 40px rgba(33,150,243,0.13);
+        padding: 48px 40px 36px 40px;
+        text-align: center;
+        animation: fadeIn 0.9s cubic-bezier(.68,-0.55,.27,1.55);
+        position: relative;
+        z-index: 1;
+    }
+    .table-profile-eventd h2 {
+        color: #2196f3;
+        margin-bottom: 8px;
+        font-size: 2.2rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    .profile-table {
+        width: 100%;
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+    }
+    .profile-table th {
+        text-align: left;
+        padding: 10px 8px;
+        color: #42a5f5;
+        font-weight: 600;
+        width: 40%;
+        background: transparent;
+    }
+    .profile-table td {
+        padding: 10px 8px;
+        color: #e3f2fd;
+        background: #22304a;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(33,150,243,0.04);
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(30px);}
+        100% { opacity: 1; transform: translateY(0);}
+    }
+    .total-donated-amount {
+        color: #43cea2;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+        background: linear-gradient(90deg,#43cea2 0%,#185a9d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .no-amount {
+        color: #90caf9;
+        font-size: 1.1rem;
+        margin-top: 24px;
+    }
+</style>
+<div class="animated-bg">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+    <div class="circle circle5"></div>
+</div>
+<div class="table-profile-eventd">
+    <h2>Donation History</h2>
+    {% if purchases and purchases.count > 0 %}
+        <div class="total-donated-amount">Total Donated by You: {{ total_donated }} Taka</div>
+        <table class="profile-table">
+            <tr>
+                <th>Event Name</th>
+                <th>Donation Date</th>
+                <th>Donated Amount (Taka)</th>
+            </tr>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.event.event_name }}</td>
+                <td>{{ purchase.purchased_at|date:'Y-m-d H:i' }}</td>
+                <td>{{ purchase.amount }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="no-amount">No Amount yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

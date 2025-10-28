@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: #23272f;
+        background-image: repeating-linear-gradient(135deg, #23272f 0 40px, #393a3f 40px 80px), repeating-linear-gradient(-135deg, #23272f 0 40px, #393a3f 40px 80px);
+    }
+    .contact-container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: rgba(220, 215, 200, 0.85);
+        border-radius: 18px;
+        box-shadow: 0 8px 40px rgba(33,150,243,0.10);
+        padding: 36px 36px 32px 36px;
+        animation: fadeIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(30px);}
+        100% { opacity: 1; transform: translateY(0);}
+    }
+    .contact-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #23272f;
+        margin-bottom: 24px;
+    }
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .form-row {
+        display: flex;
+        gap: 24px;
+    }
+    .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        font-weight: 500;
+        color: #23272f;
+        margin-bottom: 6px;
+    }
+    input, textarea {
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: none;
+        background: #fff;
+        font-size: 1rem;
+        margin-bottom: 4px;
+        box-shadow: 0 1px 4px rgba(33,150,243,0.04);
+    }
+    input:focus, textarea:focus {
+        outline: 2px solid #2196f3;
+    }
+    .form-hint {
+        font-size: 0.95rem;
+        color: #888;
+        margin-bottom: 0;
+        margin-left: 2px;
+    }
+    .required {
+        color: #e53935;
+        margin-left: 2px;
+    }
+    .submit-btn {
+        background: linear-gradient(90deg, #1565c0 0%, #2196f3 100%);
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        padding: 14px 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        margin-top: 18px;
+        box-shadow: 0 2px 8px rgba(33,150,243,0.09);
+        width: 100%;
+    }
+    .submit-btn:hover {
+        background: linear-gradient(90deg, #0d47a1 0%, #1565c0 100%);
+        box-shadow: 0 4px 16px rgba(33,150,243,0.13);
+    }
+    @media (max-width: 700px) {
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+        .contact-container {
+            padding: 18px 4vw 18px 4vw;
+        }
+    }
+</style>
+<div class="contact-container">
+    <div class="contact-title">Contact Form</div>
+    <form class="contact-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Name <span class="required">*</span></label>
+                <input type="text" placeholder="Type your answer here" required>
+                <span class="form-hint">First Name</span>
+            </div>
+            <div class="form-group">
+                <label style="visibility:hidden">Last Name</label>
+                <input type="text" placeholder="Type your answer here">
+                <span class="form-hint">Last Name</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group" style="width:100%">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" placeholder="johndoe@sample.com" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" placeholder="Type your answer here">
+            </div>
+            <div class="form-group">
+                <label style="visibility:hidden">Address 2</label>
+                <input type="text" placeholder="Type your answer here">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group" style="width:100%">
+                <label>Subject <span class="required">*</span></label>
+                <input type="text" placeholder="Type your answer here" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group" style="width:100%">
+                <label>Message</label>
+                <textarea rows="4" placeholder="Type your answer here"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+{% endblock %}

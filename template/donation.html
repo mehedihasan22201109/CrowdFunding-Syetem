@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="donation-container" style="max-width:520px;margin:40px auto;background:#fff;padding:38px 32px 32px 32px;border-radius:18px;box-shadow:0 8px 32px rgba(233,30,99,0.13);">
+    <h2 style="color:#e53935;text-align:center;margin-bottom:22px;font-size:2.1rem;font-weight:700;letter-spacing:1px;">Donate to Event</h2>
+    
+    <div style="background:#f9f9f9;border-radius:12px;box-shadow:0 2px 8px rgba(233,30,99,0.08);padding:22px 18px 18px 18px;margin-bottom:28px;">
+        <table style="width:100%;border-collapse:separate;border-spacing:0 10px;">
+            <tr>
+                <th style="color:#1976d2;text-align:left;font-size:1.1rem;">Event Name:</th>
+                <td>
+                    <div style="background:#e3f2fd;border-radius:8px;padding:10px 16px;font-weight:600;color:#333;box-shadow:0 1px 4px rgba(25,118,210,0.07);border:1px solid #bbdefb;">
+                        {{ event.event_name }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="color:#1976d2;text-align:left;font-size:1.1rem;">Description:</th>
+                <td>
+                    <div style="background:#f3e5f5;border-radius:8px;padding:10px 16px;color:#555;box-shadow:0 1px 4px rgba(123,31,162,0.07);border:1px solid #ce93d8;">
+                        {{ event.description }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="color:#e53935;text-align:left;font-size:1.1rem;">Target Amount:</th>
+                <td>
+                    <div style="background:#ffebee;border-radius:8px;padding:10px 16px;font-weight:600;color:#e53935;box-shadow:0 1px 4px rgba(229,57,53,0.07);border:1px solid #ffcdd2;">
+                        {{ event.Amount }} Taka
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="color:#388e3c;text-align:left;font-size:1.1rem;">Total Donated:</th>
+                <td>
+                    <div style="background:#e8f5e9;border-radius:8px;padding:10px 16px;font-weight:600;color:#388e3c;box-shadow:0 1px 4px rgba(56,142,60,0.07);border:1px solid #c8e6c9;">
+                        {{ event.total_donated }} Taka
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="color:#fbc02d;text-align:left;font-size:1.1rem;">Amount Needed:</th>
+                <td>
+                    <div style="background:#fffde7;border-radius:8px;padding:10px 16px;font-weight:600;color:#fbc02d;box-shadow:0 1px 4px rgba(251,192,45,0.07);border:1px solid #fff9c4;">
+                        {{ amount_needed }} Taka
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="color:#1976d2;text-align:left;font-size:1.1rem;vertical-align:top;">Payment Method:</th>
+                <td>
+                    <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-start;">
+                        {% comment %} Payment Options {% endcomment %}
+                        {% for method, img, color in [('bkash','https://download.logo.wine/logo/BKash/BKash-Logo.wine.png','#e2136e'),
+                                                       ('rocket', "{% static 'IMG/Screenshot 2025-09-07 043504.jpg' %}",'#6c3483'),
+                                                       ('nagad', "{% static 'IMG/1679248787Nagad-Logo.png' %}",'#f58220'),
+                                                       ('visa','https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png','#1a1f71'),
+                                                       ('paypal','https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg','#003087')] %}
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                            <input type="radio" name="payment_method" value="{{ method }}" style="accent-color:{{ color }};">
+                            <img src="{{ img }}" alt="{{ method|title }}" style="height:42px;width:auto;">
+                        </label>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="amount" style="font-weight:500;color:#e53935;margin-bottom:8px;font-size:1.08rem;">Donation Amount (Taka)</label>
+        <input type="number" id="amount" name="amount" min="1" step="0.01" required style="width:100%;padding:14px 16px;border-radius:10px;border:1px solid #e53935;background:#f8fafc;color:#333;font-size:1.08rem;margin-bottom:18px;outline:none;box-shadow:0 2px 8px rgba(233,30,99,0.08);transition:border 0.2s, box-shadow 0.2s;">
+        <button type="submit" class="btn btn-success" style="width:100%;padding:16px 0;font-size:1.18rem;font-weight:700;border-radius:10px;background:linear-gradient(90deg,#e53935 0%,#1976d2 100%);color:#fff;box-shadow:0 4px 16px rgba(233,30,99,0.13);letter-spacing:1px;transition:background 0.2s,box-shadow 0.2s,transform 0.2s;">Donate Now</button>
+    </form>
+</div>
+{% endblock content %}

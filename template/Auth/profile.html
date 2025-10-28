@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .geo-bg {
+            filter: drop-shadow(0 0 32px #2196f3) drop-shadow(0 0 64px #42a5f5);
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: linear-gradient(-45deg, #23272f, #2196f3, #42a5f5, #23272f);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease-in-out infinite;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .social-glow .glow-icon img {
+            height: 22px;
+            width: 22px;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 6px #2196f3) drop-shadow(0 0 12px #42a5f5);
+            transition: filter 0.3s, transform 0.3s;
+        }
+        .social-glow .glow-icon:hover img {
+            filter: drop-shadow(0 0 12px #fff) drop-shadow(0 0 24px #2196f3);
+            transform: scale(1.18) rotate(-6deg);
+        }
+        .social-glow .glow-icon {
+            display: inline-block;
+            border-radius: 50%;
+            padding: 3px;
+            transition: box-shadow 0.3s;
+        }
+        .social-glow .glow-icon:hover {
+            box-shadow: 0 0 16px 4px #2196f3, 0 0 32px 8px #42a5f5;
+            background: rgba(33,150,243,0.08);
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px;
+            background: #23272f;
+            box-shadow: 0 2px 12px rgba(30, 136, 229, 0.08);
+            border-bottom: 1px solid #22304a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            color: #2196f3;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .navbar .nav-btns {
+            display: flex;
+            gap: 16px;
+        }
+        .nav-btn {
+            background: #23272f;
+            color: #2196f3;
+            border: 2px solid #2196f3;
+            border-radius: 20px;
+            padding: 8px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.04);
+        }
+        .nav-btn:hover, .nav-btn:focus {
+            background: #2196f3;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(33,150,243,0.13);
+        }
+        .profile-eventd {
+            max-width: 580px;
+            margin: 60px auto 0 auto;
+            background: #23272f;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(33,150,243,0.10);
+            padding: 40px 36px 32px 36px;
+            text-align: center;
+            animation: fadeIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .table-profile-eventd {
+            max-width: 1080px;
+            margin: 60px auto 0 auto;
+            background: #23272f;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(33,150,243,0.10);
+            padding: 40px 36px 32px 36px;
+            text-align: center;
+            animation: fadeIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+        .profile-eventd h2 {
+            color: #2196f3;
+            margin-bottom: 8px;
+            font-size: 2.1rem;
+            font-weight: bold;
+        }
+        .profile-eventd .subtitle {
+            color: #90caf9;
+            margin-bottom: 28px;
+            font-size: 1.1rem;
+        }
+        .profile-table {
+            width: 100%;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .profile-table th {
+            text-align: left;
+            padding: 10px 8px;
+            color: #42a5f5;
+            font-weight: 600;
+            width: 40%;
+            background: transparent;
+        }
+        .profile-table td {
+            padding: 10px 8px;
+            color: #e3f2fd;
+            background: #22304a;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(33,150,243,0.04);
+        }
+        .logout-btn {
+            background: linear-gradient(90deg, #1565c0 0%, #2196f3 100%);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 12px 36px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.09);
+        }
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #0d47a1 0%, #1565c0 100%);
+            box-shadow: 0 4px 16px rgba(33,150,243,0.13);
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 14px 10vw;
+            }
+            .profile-eventd {
+                padding: 24px 6vw 18px 6vw;
+            }
+        }
+        .site-footer {
+            background: #23272f;
+            text-align: center;
+            padding: 38px 0;
+            color: #fff;
+            font-size: 1rem;
+            border-top: 1px solid #22304a;
+            margin-top: 60px;
+        }
+        .site-footer .footer-content {
+            margin-top: 10px;
+            color: #90caf9;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <svg class="geo-bg" width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;">
+        <circle cx="300" cy="200" r="80" fill="#2196f3" opacity="0.38">
+            <animate attributeName="cy" values="200;400;200" dur="8s" repeatCount="indefinite" />
+        </circle>
+        <rect x="1400" y="100" width="180" height="180" rx="40" fill="#42a5f5" opacity="0.28">
+            <animate attributeName="x" values="1400;1200;1400" dur="10s" repeatCount="indefinite" />
+        </rect>
+        <polygon points="900,900 1000,1000 800,1000" fill="#fff" opacity="0.18">
+            <animateTransform attributeName="transform" type="rotate" from="0 900 950" to="360 900 950" dur="16s" repeatCount="indefinite" />
+        </polygon>
+        <circle cx="1700" cy="900" r="60" fill="#1976d2" opacity="0.22">
+            <animate attributeName="cx" values="1700;1500;1700" dur="12s" repeatCount="indefinite" />
+        </circle>
+        <rect x="200" y="800" width="120" height="120" rx="30" fill="#fff" opacity="0.15">
+            <animate attributeName="y" values="800;900;800" dur="9s" repeatCount="indefinite" />
+        </rect>
+    </svg>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'IMG/logo.png' %}" alt="Logo">
+            <span style="margin-left:6px;">CrowdFunding</span>
+        </div>
+        <div class="nav-btns">
+            {% if user.is_authenticated and user.user_type == "admin" %}
+            <a href="{% url 'upload_event' %}" class="nav-btn" >Upload Donation Event </a>
+            {% elif user.is_authenticated and user.user_type == "campaign_creator" %}
+            <a href="{% url 'upload_event' %}" class="nav-btn" >Upload Donation Event </a>
+            {% endif %}
+            <a href="{% url 'home' %}" class="nav-btn">Home</a>
+            <a href="{% url 'history' %}" class="nav-btn">See History</a>
+            <a href="{% url 'donarlist' %}" class="nav-btn">Donars</a>
+            <a href="{% url 'all_events' %}" class="nav-btn">Donation Events</a>
+            <a href="{% url 'massage' %}" class="nav-btn" >Massage</a>
+            <a href="{% url 'help' %}" class="nav-btn">Help</a>
+            <a href="mailto:support@CrowdFunding.com" class="nav-btn">Contact</a>
+            <span class="social-glow" style="margin-left:18px;">
+                <a href="https://facebook.com" target="_blank" class="glow-icon" style="margin-right:20px;">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://instagram.com" target="_blank" class="glow-icon" style="margin-right:20px;">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://x.com" target="_blank" class="glow-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+                </a>
+            </span>
+        </div>
+    </nav>
+    <div class="profile-eventd">
+        <h2>User Profile</h2>
+        <div class="subtitle">Welcome to your profile page!</div>
+        {% if user.profile_pic %}
+            <img src="{{ user.profile_pic.url }}" alt="Profile Picture" style="width:190px;height:220px;border-radius:50%;margin-bottom:20px;">
+        {% else %}
+            <img src="{% static 'IMG/default_profile.png' %}" alt="Default Profile Picture" style="width:120px;height:120px;border-radius:50%;margin-bottom:20px;">
+        {% endif %}
+        <table class="profile-table">
+            <tr>
+                <th>Username:</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>User Type:</th>
+                <td>{{ user.get_user_type_display }}</td>
+            </tr>
+            <tr>
+                <th>Date Joined:</th>
+                <td>{{ user.date_joined }}</td>
+            </tr>
+            <tr>
+                <th>Last Login:</th>
+                <td>{{ user.last_login }}</td>
+            </tr>
+        </table>
+        
+    <a href="{% url 'varify' %}" class="logout-btn" style="background:linear-gradient(90deg,#fbc02d 0%,#1976d2 100%);color:#23272f;margin-right:12px;">Verify Yourself</a>
+    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    
+    
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            © 2025 CrowdFunding. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

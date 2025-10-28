@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+	.about-hero {
+		background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+		min-height: 340px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		margin-top: -35px;
+	}
+	.about-hero-overlay {
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: rgba(24,24,24,0.45);
+		z-index: 1;
+	}
+	.about-hero-content {
+		position: relative;
+		z-index: 2;
+		color: #fff;
+		text-align: center;
+		padding: 60px 0 30px 0;
+	}
+	.about-hero-content h1 {
+		font-size: 2.8rem;
+		font-weight: 700;
+		margin-bottom: 12px;
+		letter-spacing: 1px;
+	}
+	.about-hero-content p {
+		font-size: 1.25rem;
+		font-weight: 400;
+		margin-bottom: 0;
+	}
+	.about-section {
+		background: #fff;
+		padding: 48px 0 32px 0;
+		text-align: center;
+	}
+	.about-stats {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 40px;
+		margin: 36px 0 24px 0;
+	}
+	.about-stat {
+		background: #f8fafc;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		padding: 28px 36px;
+		min-width: 180px;
+		text-align: center;
+	}
+	.about-stat h2 {
+		color: #e53935;
+		font-size: 2.1rem;
+		margin-bottom: 6px;
+		font-weight: 700;
+	}
+	.about-stat p {
+		color: #1976d2;
+		font-size: 1.1rem;
+		margin: 0;
+	}
+	.about-map {
+		margin: 36px auto 0 auto;
+		max-width: 700px;
+		width: 100%;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+	}
+	.about-section h2 {
+		color: #e53935;
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 18px;
+	}
+	.about-section p {
+		color: #444;
+		font-size: 1.13rem;
+		margin-bottom: 18px;
+	}
+	.about-cta {
+		background: #f5f5f5;
+		padding: 36px 0 32px 0;
+		text-align: center;
+	}
+	.about-cta-box {
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		padding: 32px 24px;
+		max-width: 600px;
+		margin: 0 auto 24px auto;
+	}
+	.about-cta-box h3 {
+		color: #388e3c;
+		font-size: 1.4rem;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+	.about-cta-box p {
+		color: #555;
+		font-size: 1.08rem;
+		margin-bottom: 0;
+	}
+	.about-cta-btn {
+		display: inline-block;
+		margin-top: 18px;
+		padding: 12px 32px;
+		background: #e53935;
+		color: #fff;
+		border-radius: 8px;
+		font-size: 1.1rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s;
+	}
+	.about-cta-btn:hover {
+		background: #b71c1c;
+	}
+	.about-partners {
+		background: #fff;
+		padding: 36px 0 32px 0;
+		text-align: center;
+	}
+	.about-partners h2 {
+		color: #1976d2;
+		font-size: 1.6rem;
+		font-weight: 700;
+		margin-bottom: 18px;
+	}
+	.about-partners-logos {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		margin-bottom: 18px;
+	}
+	.about-partners-logos img {
+		height: 48px;
+		object-fit: contain;
+		filter: grayscale(1) contrast(1.1);
+	}
+	.about-testimonial {
+		background: #f8fafc;
+		padding: 36px 0 32px 0;
+		text-align: center;
+	}
+	.about-testimonial blockquote {
+		font-size: 1.18rem;
+		color: #555;
+		font-style: italic;
+		margin: 0 auto 18px auto;
+		max-width: 700px;
+	}
+	.about-testimonial cite {
+		color: #1976d2;
+		font-size: 1.05rem;
+		font-style: normal;
+		font-weight: 600;
+	}
+	.about-learnmore {
+		background: #fff;
+		padding: 36px 0 32px 0;
+		text-align: center;
+	}
+	.about-learnmore-cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		margin-top: 18px;
+	}
+	.about-learnmore-card {
+		background: #f8fafc;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+		padding: 24px 18px;
+		min-width: 320px;
+		max-width: 260px;
+		text-align: center;
+		transition: box-shadow 0.2s, transform 0.2s;
+	}
+	.about-learnmore-card:hover {
+		box-shadow: 0 8px 32px rgba(233,30,99,0.13);
+		transform: translateY(-4px) scale(1.03);
+	}
+	.about-learnmore-card img {
+		width: 100%;
+		height: 320px;
+		object-fit: cover;
+		border-radius: 8px;
+		margin-bottom: 12px;
+	}
+	.about-learnmore-card h4 {
+		color: #e53935;
+		font-size: 1.13rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	.about-learnmore-card p {
+		color: #555;
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+</style>
+
+<div class="about-hero">
+	<div class="about-hero-overlay"></div>
+	<div class="about-hero-content">
+		<h1>About Us</h1>
+		<p>We connect donors, companies, and nonprofits in nearly every country. Together, we make the world a better place.</p>
+	</div>
+</div>
+
+<div class="about-section">
+	<h2>Who We Are</h2>
+	<p>We are a nonprofit platform supporting other nonprofits by connecting them to donors and companies worldwide. Since 2002, we've helped thousands of organizations get the tools, training, and support they need to make our world a better place.</p>
+	<div class="about-stats">
+		<div class="about-stat">
+			<h2>$1,042M</h2>
+			<p>Raised since 2002</p>
+		</div>
+		<div class="about-stat">
+			<h2>1,964,766</h2>
+			<p>People impacted</p>
+		</div>
+		<div class="about-stat">
+			<h2>40,580</h2>
+			<p>Projects supported</p>
+		</div>
+		<div class="about-stat">
+			<h2>175+</h2>
+			<p>Countries</p>
+		</div>
+	</div>
+	<div class="about-map">
+		
+		<img src="{% static 'IMG/map.jpg' %}" alt="Local Map" style="width:100%;height:auto;margin-top:18px;border-radius:8px;">
+	</div>
+</div>
+
+<div class="about-cta">
+	<div class="about-cta-box">
+		<h3>Safe + Easy Donations</h3>
+		<p>We make giving safe and easy. Donations are vetted, tax-deductible, and go directly to the projects and organizations you care about. We offer a donation satisfaction guarantee.</p>
+		<a href="#" class="about-cta-btn">Read a statement</a>
+	</div>
+	<div class="about-cta-box" style="background:#e8f5e9;">
+		<h3>Join us!</h3>
+		<p>We partner with nonprofits in 175+ countries who work on the ground and post the projects that their communities really need. Want to post your project?</p>
+		<a href="#" class="about-cta-btn" style="background:#388e3c;">Apply Free</a>
+	</div>
+</div>
+
+<div class="about-partners">
+	<h2>Corporate Partnerships</h2>
+	<div class="about-partners-logos">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+		
+		<img src="https://1000logos.net/wp-content/uploads/2017/05/Pepsi-logo.png" alt="Pepsi">
+	</div>
+	<a href="#" class="about-cta-btn" style="background:#1976d2;">Learn More</a>
+</div>
+
+<div class="about-cta">
+	<div class="about-cta-box" style="background:#fff3e0;">
+		<h3>Disaster Response</h3>
+		<p>When a disaster happens, we can quickly send funds to the local organizations that are best suited to do relief and recovery.</p>
+		<a href="#" class="about-cta-btn" style="background:#e53935;">Learn More</a>
+	</div>
+</div>
+
+<div class="about-section">
+	<h2>Our Mission</h2>
+	<p>To transform aid and philanthropy to accelerate community-led change.</p>
+	<div style="margin:18px 0;">
+	  <img src="{% static 'IMG/mission.jpg' %}" alt="Award badge for Top Rated Charity with a gold star emblem, symbolizing excellence and trustworthiness" style="height:360px;">
+	</div>
+</div>
+
+<div class="about-testimonial">
+	<blockquote>“This platform has been a terrific partner in supporting our initiatives, from disaster relief to feeding the hungry, and providing critical aid. We are grateful for the ability to support critical causes and to maximize our impact to improve the communities where we all live and work.”</blockquote>
+	<cite>David Leary, Chief Communications Officer, Discovery Communications</cite>
+</div>
+
+<div class="about-learnmore">
+	<h2>Learn more:</h2>
+	<div class="about-learnmore-cards">
+		<div class="about-learnmore-card">
+			<img src="{% static 'IMG/mehedi.jpeg' %}" alt="Post your project">
+			<h4>Lead Programmer</h4>
+			<p> Mehedi Hasan</p>
+			<p> University of Asia Pacific</p>
+		</div>
+		<div class="about-learnmore-card">
+			   <img src="{% static 'IMG/army.jpeg' %}" alt="Post your project">
+			<h4>Program Tester</h4>
+			<p> Nazmul Hossain nayeem</p>
+			<p> University of Asia Pacific</p>
+		</div>
+		<div class="about-learnmore-card">
+			   <img src="{% static 'IMG/shorna.jpeg' %}" alt="Post your project">
+			<h4>UI/UX Designer</h4>
+			<p>Shorna </p>
+			<p> University of Asia Pacific</p>
+		</div>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="event-details-container" style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(233,30,99,0.08);padding:32px 28px;max-width:420px;width:100%;margin:40px auto;">
+    <h2 style="font-size:2rem;font-weight:bold;color:#1976d2;margin-bottom:12px;">Donate to Event</h2>
+    <div style="margin-bottom:18px;">
+        <strong>Event:</strong> {{ event.event_name }}<br>
+        <strong>Target Amount:</strong> {{ event.Amount }} Taka
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom:18px;">
+            <label for="amount" style="font-weight:600;">Donation Amount (Taka):</label>
+            <input type="number" name="amount" id="amount" min="1" required style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid #ccc;margin-top:6px;">
+        </div>
+        <!-- Payment Options -->
+        <div style="margin-bottom: 24px;">
+            <div style="font-weight:600;margin-bottom:8px;">Choose Payment Method:</div>
+            <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="radio" name="payment_method" value="bkash" style="accent-color:#e2136e;">
+                    <img src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png" alt="Bkash" style="height:32px;width:auto;"> Bkash
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="radio" name="payment_method" value="rocket" style="accent-color:#6c3483;">
+                    <img src="https://www.dutchbanglabank.com/assets/theme/img/rocket-logo.png" alt="Rocket" style="height:32px;width:auto;"> Rocket
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="radio" name="payment_method" value="nagad" style="accent-color:#f58220;">
+                    <img src="https://www.nagad.com.bd/themes/nagad_theme/assets/images/logo.png" alt="Nagad" style="height:32px;width:auto;"> Nagad
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="radio" name="payment_method" value="visa" style="accent-color:#1a1f71;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" style="height:32px;width:auto;"> Visa
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="radio" name="payment_method" value="paypal" style="accent-color:#003087;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height:32px;width:auto;"> PayPal
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" style="width:100%;margin-top:10px;">Donate Now</button>
+    </form>
+</div>
+{% endblock content %}
