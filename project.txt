@@ -1,0 +1,3 @@
+Django Super user: mehedi
+mail:mehedi@gmail.com
+pass:12345
